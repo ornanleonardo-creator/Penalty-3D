@@ -1,0 +1,27 @@
+name: Build Penalty3D
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Download Godot
+      run: |
+        wget https://downloads.tuxfamily.org/godotengine/4.2/Godot_v4.2-stable_linux.x86_64.zip
+        unzip Godot_v4.2-stable_linux.x86_64.zip
+
+    - name: Export Android APK
+      run: |
+        ./Godot_v4.2-stable_linux.x86_64 --headless --export-release "Android" game.apk
+
+    - name: Upload Build
+      uses: actions/upload-artifact@v3
+      with:
+        name: Penalty3D
+        path: game.apk
