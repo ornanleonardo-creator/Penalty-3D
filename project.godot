@@ -3,3 +3,10 @@ config_version=5
 [application]
 config/name="Penalty3D"
 run/main_scene="res://scenes/Main.tscn"
+[export]
+preset/Android/name="Android"
+preset/Android/keystore="user.keystore"
+preset/Android/key_alias="key"
+preset/Android/key_password="123456"
+preset/Android/keystore_password="123456"
+preset/Android/custom_template="android_custom_build"
