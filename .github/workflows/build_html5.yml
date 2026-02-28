@@ -9,26 +9,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1️⃣ Télécharger le code
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # 2️⃣ Télécharger Godot officiel
     - name: Download Godot 4.2
       run: |
         wget https://github.com/godotengine/godot/releases/download/4.2-stable/Godot_v4.2-stable_linux.x86_64.zip -O Godot.zip
         unzip Godot.zip
 
-    # 3️⃣ Export HTML5
+    # Crée le build HTML5
     - name: Export HTML5
       run: |
-        mkdir -p build_html5
         ./Godot_v4.2-stable_linux.x86_64 --headless --export "HTML5" build_html5/ || echo "Build finished"
 
-    # 4️⃣ Sauvegarder le build
+    # Upload
     - name: Upload HTML5 build
       uses: actions/upload-artifact@v4
       with:
         name: Penalty3D_HTML5
         path: build_html5
-        if-no-files-found: warn
