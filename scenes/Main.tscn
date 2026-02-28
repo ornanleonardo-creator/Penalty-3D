@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[node name="Main" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1,0,0,0,1,0,0,0,1,0,2,6)
+
+[node name="Light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1,0,0,0,1,0,0,0,1,0,4,0)
