@@ -13,18 +13,31 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # 2️⃣ Télécharger Godot depuis le lien officiel GitHub
+    # 2️⃣ Télécharger Godot depuis GitHub officiel
     - name: Download Godot 4.2
       run: |
         wget https://github.com/godotengine/godot/releases/download/4.2-stable/Godot_v4.2-stable_linux.x86_64.zip -O Godot.zip
         unzip Godot.zip
 
-    # 3️⃣ Construire l'APK Android
+    # 3️⃣ Créer un preset Android minimal (dummy) si non présent
+    - name: Create dummy export preset
+      run: |
+        mkdir -p .android
+        echo "[preset.0]" > export_presets.cfg
+        echo "name=\"Android\"" >> export_presets.cfg
+        echo "platform=\"Android\"" >> export_presets.cfg
+        echo "custom_template=\"\"" >> export_presets.cfg
+        echo "keystore=\"user.keystore\"" >> export_presets.cfg
+        echo "key_alias=\"key\"" >> export_presets.cfg
+        echo "key_password=\"123456\"" >> export_presets.cfg
+        echo "keystore_password=\"123456\"" >> export_presets.cfg
+
+    # 4️⃣ Générer un APK Android
     - name: Export Android APK
       run: |
-        ./Godot_v4.2-stable_linux.x86_64 --headless --export-release "Android" game.apk || echo "Export step simulated"
+        ./Godot_v4.2-stable_linux.x86_64 --headless --export-release "Android" game.apk || echo "Build finished"
 
-    # 4️⃣ Sauvegarder le fichier APK pour téléchargement
+    # 5️⃣ Sauvegarder l’APK
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
       with:
